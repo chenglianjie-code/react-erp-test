@@ -41,8 +41,8 @@ export const useScrollContainerGetter = () => {
  */
 
 export const useScrollContainerRef = () => {
-  const [scrollElement, setScrollElement] = useState<HTMLElement | null>();
-  const scrollContainerRef = useRef<HTMLElement>(null);
+  const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setScrollElement(scrollContainerRef.current);
   }, []);
