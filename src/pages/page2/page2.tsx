@@ -1,7 +1,7 @@
 // src/pages/page2.tsx
-import { ScrollContainerProvider, useScrollContainerRef } from "../components/scroll-container";
+import { ScrollContainerProvider, useScrollContainerRef } from "@/features/scroll-container";
 import { Child } from "./page2-child";
-export default function Page2() {
+export function Page2() {
   const [scroller, scrollerRef] = useScrollContainerRef();
   return (
     <ScrollContainerProvider value={scroller}>

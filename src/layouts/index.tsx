@@ -1,4 +1,3 @@
-// src/layouts/index.tsx
 import { Outlet } from "umi";
 import { Layout, Menu } from "antd";
 import type { MenuProps } from "antd";
