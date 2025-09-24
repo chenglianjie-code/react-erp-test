@@ -1,7 +1,9 @@
 import { Outlet } from "umi";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { Layout, Menu } from "antd";
 import type { MenuProps } from "antd";
 import { Link } from "umi";
+import { queryClient } from "./query-client";
 
 const { Header, Content, Sider } = Layout;
 
@@ -26,22 +28,24 @@ export default function LayoutComponent() {
     },
   ];
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      {/* 左侧菜单栏 */}
-      <Sider collapsible>
-        <div style={{ height: 32, margin: 16, background: "rgba(255, 255, 255, 0.2)" }} />
-        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" items={items} />
-      </Sider>
+    <QueryClientProvider client={queryClient}>
+      <Layout style={{ minHeight: "100vh" }}>
+        {/* 左侧菜单栏 */}
+        <Sider collapsible>
+          <div style={{ height: 32, margin: 16, background: "rgba(255, 255, 255, 0.2)" }} />
+          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" items={items} />
+        </Sider>
 
-      {/* 右侧内容区 */}
-      <Layout>
-        <Header style={{ padding: 0, background: "#fff" }} />
-        <Content style={{ margin: "24px 16px 0" }}>
-          <div style={{ padding: 24, minHeight: 360, background: "#fff" }}>
-            <Outlet />
-          </div>
-        </Content>
+        {/* 右侧内容区 */}
+        <Layout>
+          <Header style={{ padding: 0, background: "#fff" }} />
+          <Content style={{ margin: "24px 16px 0" }}>
+            <div style={{ padding: 24, minHeight: 360, background: "#fff" }}>
+              <Outlet />
+            </div>
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </QueryClientProvider>
   );
 }

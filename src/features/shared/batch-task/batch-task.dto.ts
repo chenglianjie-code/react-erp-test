@@ -41,13 +41,23 @@ export interface AsyncBatchTaskDto<T extends BatchTaskResult = BatchTaskResult> 
    * 需要使用这个任务码来获取任务进度
    */
   batch_id: string;
-  type: BatchTaskType.异步;
+  type: BatchTaskType;
   list: T[];
   file_path?: string;
-  fail_num: 0;
-  success_num: 0;
+  fail_num: number;
+  success_num: number;
   total_num: number;
-  status: BatchTaskStatus.处理中;
+  status: BatchTaskStatus;
+}
+
+/**
+ * 导入返回的结果，比异步方式多一个label，表示具体的模块
+ */
+export interface ImportTaskDto<T extends BatchTaskResult = BatchTaskResult> extends AsyncBatchTaskDto<T> {
+  /**
+   * 模块类型
+   */
+  label: string;
 }
 
 /**
@@ -59,13 +69,13 @@ export interface SyncBatchTaskDto<T extends BatchTaskResult = BatchTaskResult> {
    * 批量处理任务码id
    */
   batch_id: string;
-  type: BatchTaskType.同步;
+  type: BatchTaskType;
   list: T[];
   file_path?: string;
   fail_num: number;
   success_num: number;
   total_num: number;
-  status: BatchTaskStatus.已完成;
+  status: BatchTaskStatus;
 }
 
 /**

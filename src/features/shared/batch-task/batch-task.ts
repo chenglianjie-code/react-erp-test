@@ -1,7 +1,8 @@
-import { BatchTaskResult, BatchTaskType, BatchTaskStatus, BatchTaskDto } from "./batch-task.dto";
+import { BatchTaskResult, BatchTaskType, BatchTaskStatus, BatchTaskDto, ImportTaskDto } from "./batch-task.dto";
 import type { ReactNode } from "react";
 import type { TableProps } from "antd";
 import { DownloadManager } from "./download-manager";
+import { batchTaskService } from "./batch-task.service";
 
 /**
  * 批量任务的抽象类，实现了公共批量任务的逻辑，各模块需要基于该抽象类进行扩展
@@ -154,7 +155,7 @@ export abstract class BatchTask<T extends BatchTaskResult = BatchTaskResult> {
    * @param task 当前获取到的任务
    * @param options
    */
-  async takeUntilCompleted(options: { minWait?: number }) {
+  async takeUntilCompleted(options?: { minWait?: number }) {
     if (this._type === BatchTaskType.同步) {
       return this;
     }
@@ -200,6 +201,30 @@ export abstract class BatchTask<T extends BatchTaskResult = BatchTaskResult> {
     for (const cb of this._onCompleteCallbacks) {
       cb();
     }
+  }
+}
+
+/**
+ * 批量导入任务类,比BatchTask多一个label参数
+ */
+export abstract class BatchImportTask<T extends BatchTaskResult = BatchTaskResult> extends BatchTask<T> {
+  /**
+   * 任务模块
+   */
+  protected _label: string;
+  get Label() {
+    return this._label;
+  }
+  constructor(task: ImportTaskDto<T>) {
+    super(task);
+    this._label = task.label;
+  }
+  /**
+   * 获取任务进度信息
+   * @param taskId 任务 ID
+   */
+  protected getTaskProgress(taskId: string) {
+    return batchTaskService.getImportTaskProgress<T>(this._label, taskId);
   }
 }
 

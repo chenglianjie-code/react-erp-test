@@ -9,6 +9,8 @@
     "start": "npm run dev"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.2",
+    "axios": "^1.12.2",
     "date-fns": "^4.1.0",
     "umi": "^4.4.11",
     "xlsx": "^0.18.5"

@@ -1,1 +1,2 @@
-export { BatchTask } from "./batch-task";
+export { BatchTask, BatchImportTask } from "./batch-task";
+export * from "./batch-task.dto";

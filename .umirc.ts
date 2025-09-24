@@ -23,6 +23,6 @@ export default defineConfig({
   tailwindcss: {},
   alias: {
     "@": "/src",
-    "@/feature": "/src/features",
+    "@/features": "/src/features",
   },
 });
