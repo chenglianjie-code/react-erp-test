@@ -11,7 +11,7 @@ export class UserService {
       type: "import",
       label: "user_import_create",
     });
-    console.log("导入接口返回的data", data);
+    console.log("导入接口成功 - 返回的数据，拿到uid去轮询请求", data);
     return new UserImportTask({
       batch_id: data.uid,
       label: data.label,

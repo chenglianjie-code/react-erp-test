@@ -222,6 +222,7 @@ export abstract class BatchImportTask<T extends BatchTaskResult = BatchTaskResul
   /**
    * 获取任务进度信息
    * @param taskId 任务 ID
+   * 公共接口，label表示具体哪个模块
    */
   protected getTaskProgress(taskId: string) {
     return batchTaskService.getImportTaskProgress<T>(this._label, taskId);
