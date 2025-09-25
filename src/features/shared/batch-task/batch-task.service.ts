@@ -4,6 +4,7 @@ import {
   BatchTaskType,
   BatchTaskStatus,
   BatchTaskResultStatus,
+  BatchTaskDto,
 } from "./batch-task.dto";
 import { axios } from "@/features/axios";
 
@@ -33,6 +34,27 @@ export class BatchTaskService {
       status: Math.random() < 0.5 ? BatchTaskStatus.已完成 : BatchTaskStatus.处理中,
     });
     console.log("轮询返回的结果", data);
+    return data;
+  }
+
+  /**
+   * 供应链批量轮询进度获取
+   */
+  async getSupplyBatchTaskProgress<T extends BatchTaskResult = BatchTaskResult>(taskId: string) {
+    const { data } = await axios<BatchTaskDto<T>>({
+      batch_id: taskId,
+      type: BatchTaskType.异步,
+      list: [
+        { key: "1685954578", message: "采购单状态不对", result: BatchTaskResultStatus.失败 } as T,
+        { key: "8952224545", message: "采购单提交成功", result: BatchTaskResultStatus.成功 } as T,
+      ] as T[],
+      file_path: "",
+      fail_num: 1,
+      success_num: 1,
+      total_num: 2,
+      status: Math.random() < 0.5 ? BatchTaskStatus.已完成 : BatchTaskStatus.处理中,
+    });
+    console.log("批量提交---轮询返回的结果", data);
     return data;
   }
 }

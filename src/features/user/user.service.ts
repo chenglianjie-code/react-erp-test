@@ -1,6 +1,6 @@
 import { axios } from "@/features/axios";
-import { BatchTaskStatus, BatchTaskType } from "@/features/shared";
-import { UserImportTask } from "./use-import-task";
+import { BatchTaskStatus, BatchTaskType, BatchTaskDto } from "@/features/shared";
+import { UserImportTask, PurchaseOrderBatchTask } from "./use-import-task";
 export class UserService {
   /**
    * 模拟导入批量任务
@@ -23,6 +23,23 @@ export class UserService {
       file_path: "",
       list: [],
     });
+  }
+
+  /**
+   * 批量提交
+   */
+
+  async batchSubmit(ids: number) {
+    const { data } = await axios<BatchTaskDto>({
+      type: BatchTaskType.异步,
+      batch_id: "f6807f1b-02ad-4956-868d-499e0b9af2b4",
+      status: BatchTaskStatus.处理中,
+      success_num: 0,
+      fail_num: 0,
+      total_num: 1,
+      list: [],
+    });
+    return new PurchaseOrderBatchTask(data);
   }
 }
 
